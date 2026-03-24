@@ -13,6 +13,51 @@ type ActionOption = {
     success_rate?: number;
 };
 
+function getActionIconGlyph(action: ActionOption): string {
+    const icon = (action.icon || '').toLowerCase();
+    const label = (action.label || '').toLowerCase();
+    const output = (action.output || '').toLowerCase();
+    const text = `${icon} ${label} ${output}`;
+    if (text.includes('lightning') || text.includes('雷') || text.includes('突袭')) {
+        return '⚡';
+    }
+    if (text.includes('shield') || text.includes('guard') || text.includes('防') || text.includes('护')) {
+        return '🛡';
+    }
+    if (text.includes('sword') || text.includes('剑') || text.includes('斩') || text.includes('attack')) {
+        return '⚔';
+    }
+    if (text.includes('gun') || text.includes('枪') || text.includes('射')) {
+        return '✦';
+    }
+    if (text.includes('heal') || text.includes('回复') || text.includes('治疗')) {
+        return '✚';
+    }
+    return '◆';
+}
+
+type ActionTone = 'attack' | 'guard' | 'mobility' | 'support' | 'neutral';
+
+function getActionTone(action: ActionOption): ActionTone {
+    const icon = (action.icon || '').toLowerCase();
+    const label = (action.label || '').toLowerCase();
+    const output = (action.output || '').toLowerCase();
+    const text = `${icon} ${label} ${output}`;
+    if (text.includes('shield') || text.includes('guard') || text.includes('防') || text.includes('护')) {
+        return 'guard';
+    }
+    if (text.includes('heal') || text.includes('回复') || text.includes('治疗') || text.includes('恢复')) {
+        return 'support';
+    }
+    if (text.includes('lightning') || text.includes('雷') || text.includes('突袭') || text.includes('闪避') || text.includes('位移')) {
+        return 'mobility';
+    }
+    if (text.includes('sword') || text.includes('剑') || text.includes('斩') || text.includes('attack') || text.includes('枪')) {
+        return 'attack';
+    }
+    return 'neutral';
+}
+
 /** DMC5 战斗风格：中文名、英文斜体、图标字母 */
 const DMC_STYLES = [
     { cn: '剑圣', en: 'Swordmaster', icon: 'S' },
@@ -1732,15 +1777,19 @@ export default function App() {
                         <p>预测成功率将基于你的属性和当前好感度</p>
                     </div>
                     <div className="action-list">
-                        {actionsToRender.map((action, idx) => (
+                        {actionsToRender.map((action, idx) => {
+                            const tone = getActionTone(action);
+                            return (
                             <div
                                 key={`${action.label}-${idx}`}
-                                className="action-item"
+                                className={`action-item action-tone-${tone}`}
                                 style={{ '--accent': action.color || 'var(--gold)' } as any}
                                 onClick={() => pushActionToTavern(action)}
                             >
                                 <div className="action-icon">
-                                    <i className={action.icon || 'ph-lightning'}></i>
+                                    <span className="action-icon-glyph" aria-hidden>
+                                        {getActionIconGlyph(action)}
+                                    </span>
                                 </div>
                                 <div className="action-label">{action.label}</div>
                                 <div className="action-chance">
@@ -1752,7 +1801,8 @@ export default function App() {
                                     <span className="chance-label">成功率</span>
                                 </div>
                             </div>
-                        ))}
+                            );
+                        })}
                     </div>
                     <button className="btn-close-panel" onClick={() => setIsActionPanelOpen(false)}>取消</button>
                 </div>
