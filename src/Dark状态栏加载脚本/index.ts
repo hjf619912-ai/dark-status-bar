@@ -435,7 +435,8 @@ function mountIframe($hook: JQuery<HTMLElement>) {
     origin = window.location.origin;
   }
   const baseUrl = `${origin}/dark`;
-  const src = `${baseUrl}/index.html`;
+  const v = Date.now();
+  const src = `${baseUrl}/index.html?v=${v}`;
   const wrap = `<div class="dark-embed-wrap" style="width:100%;min-width:100%;max-width:100vw;overflow-x:hidden;box-sizing:border-box;"><iframe src="${src}" style="width:100%;height:80vh;min-height:400px;border:none;display:block;"></iframe></div>`;
   $hook.empty().html(wrap);
 }
@@ -443,7 +444,8 @@ function mountIframe($hook: JQuery<HTMLElement>) {
 function mountInject($hook: JQuery<HTMLElement>) {
   const ownerDoc = $hook[0].ownerDocument;
   const baseUrl = REMOTE_BASE;
-  const pageUrl = `${baseUrl}/index.html`;
+  const v = Date.now();
+  const pageUrl = `${baseUrl}/index.html?v=${v}`;
   /**
    * 勿用 `$.get`：酒馆全局 `$.ajaxSetup` 会给跨域请求带上 `x-csrf-token`，触发 CORS 预检，
    * 远端若未在 `Access-Control-Allow-Headers` 里放行该头，会得到
@@ -465,13 +467,13 @@ function mountInject($hook: JQuery<HTMLElement>) {
       const link = ownerDoc.createElement('link');
       link.rel = 'stylesheet';
       link.setAttribute('data-dark-css', '1');
-      link.href = `${baseUrl}/assets/index.css`;
+      link.href = `${baseUrl}/assets/index.css?v=${v}`;
       ownerDoc.head.appendChild(link);
       ownerDoc.getElementById('dark-remote-module')?.remove();
       const s = ownerDoc.createElement('script');
       s.id = 'dark-remote-module';
       s.type = 'module';
-      s.src = `${baseUrl}/assets/index.js`;
+      s.src = `${baseUrl}/assets/index.js?v=${v}`;
       s.crossOrigin = 'anonymous';
       ownerDoc.body.appendChild(s);
     })
