@@ -509,6 +509,7 @@ export default function App() {
     const [activeTab, setActiveTab] = useState('hero');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalImage, setModalImage] = useState('');
+    const [veilModalError, setVeilModalError] = useState('');
     const [selectedCompanionIndex, setSelectedCompanionIndex] = useState(0);
     const [selectedEncounterIndex, setSelectedEncounterIndex] = useState(0);
     const [isActionPanelOpen, setIsActionPanelOpen] = useState(false);
@@ -801,20 +802,37 @@ export default function App() {
     const getEffectiveVeilBaseUrl = () =>
         (settings.veilBaseUrl || (mvuData as any)?.暗夜面纱?.基础URL || '').trim();
 
+    const closeVeilModal = () => {
+        setIsModalOpen(false);
+        setModalImage('');
+        setVeilModalError('');
+    };
+
+    const toReadableUrl = (raw: string) => {
+        if (!raw) return '';
+        try {
+            return decodeURI(raw);
+        } catch {
+            return raw;
+        }
+    };
+
+    const openVeilErrorModal = (message: string, url?: string) => {
+        const detail = url ? `\n图片地址：${toReadableUrl(url)}` : '';
+        setModalImage('');
+        setVeilModalError(`${message}${detail}`);
+        setIsModalOpen(true);
+    };
+
     const openModal = (imgUrl: string) => {
+        setVeilModalError('');
         setModalImage(imgUrl);
         setIsModalOpen(true);
     };
 
     const notifyVeil = (msg: string) => {
-        const g = globalThis as any;
-        if (typeof g.toastr?.error === 'function') {
-            g.toastr.error(msg);
-        } else if (typeof g.toastr?.warning === 'function') {
-            g.toastr.warning(msg);
-        } else {
-            console.warn('[Dark]', msg);
-        }
+        console.warn('[Dark][暗夜面纱]', msg);
+        openVeilErrorModal(msg);
     };
 
     const buildRemoteUrl = (baseUrl: string, ...segments: string[]) => {
@@ -1783,16 +1801,51 @@ export default function App() {
                             <div
                                 key={`${action.label}-${idx}`}
                                 className={`action-item action-tone-${tone}`}
-                                style={{ '--accent': action.color || 'var(--gold)' } as any}
+                                style={{
+                                    '--accent': action.color || 'var(--gold)',
+                                    display: 'grid',
+                                    gridTemplateColumns: '32px minmax(0, 1fr)',
+                                    gridTemplateAreas: '"icon label" "icon chance"',
+                                    alignItems: 'start',
+                                    columnGap: '8px',
+                                    rowGap: '3px',
+                                } as any}
                                 onClick={() => pushActionToTavern(action)}
                             >
-                                <div className="action-icon">
+                                <div className="action-icon" style={{ gridArea: 'icon', width: '32px', height: '32px' }}>
                                     <span className="action-icon-glyph" aria-hidden>
                                         {getActionIconGlyph(action)}
                                     </span>
                                 </div>
-                                <div className="action-label">{action.label}</div>
-                                <div className="action-chance">
+                                <div
+                                    className="action-label"
+                                    style={{
+                                        gridArea: 'label',
+                                        whiteSpace: 'pre-wrap',
+                                        overflow: 'visible',
+                                        textOverflow: 'clip',
+                                        wordBreak: 'break-word',
+                                        overflowWrap: 'anywhere',
+                                        lineHeight: 1.28,
+                                        fontSize: '0.82rem',
+                                    }}
+                                >
+                                    {action.label}
+                                </div>
+                                <div
+                                    className="action-chance"
+                                    style={{
+                                        gridArea: 'chance',
+                                        justifySelf: 'start',
+                                        alignSelf: 'start',
+                                        textAlign: 'left',
+                                        minWidth: 0,
+                                        display: 'flex',
+                                        flexDirection: 'row',
+                                        gap: '6px',
+                                        alignItems: 'baseline',
+                                    }}
+                                >
                                     <span className="chance-val">
                                         {typeof action.success_rate === 'number'
                                             ? `${Math.max(0, Math.min(100, action.success_rate))}%`
@@ -1812,22 +1865,31 @@ export default function App() {
             {createPortal(
                 <div
                     className={`modal modal--veil-full ${isModalOpen ? 'active' : ''}`}
-                    onClick={() => setIsModalOpen(false)}
+                    onClick={closeVeilModal}
                     role="dialog"
                     aria-modal="true"
                     aria-label="暗夜面纱"
                 >
                     <div className="modal-veil-img-only" onClick={(e) => e.stopPropagation()}>
-                        <img
-                            src={modalImage}
-                            alt="暗夜面纱"
-                            referrerPolicy="no-referrer"
-                            onError={() => {
-                                notifyVeil(
-                                    '图片加载失败：请检查图库路径、跨域或文件是否存在。当前 URL：' + modalImage,
-                                );
-                            }}
-                        />
+                        {!veilModalError && modalImage && (
+                            <img
+                                src={modalImage}
+                                alt="暗夜面纱"
+                                referrerPolicy="no-referrer"
+                                onError={() => {
+                                    openVeilErrorModal(
+                                        '图片加载失败：请检查图库路径、跨域或文件是否存在。',
+                                        modalImage,
+                                    );
+                                }}
+                            />
+                        )}
+                        {veilModalError && (
+                            <div className="veil-error-panel" role="alert">
+                                <div className="veil-error-title">暗夜面纱加载失败</div>
+                                <pre className="veil-error-message">{veilModalError}</pre>
+                            </div>
+                        )}
                     </div>
                 </div>,
                 document.body,
