@@ -724,6 +724,35 @@ body > .dark-embed-wrap {
     justify-content: center;
 }
 
+.modal--veil-full .veil-error-panel {
+    width: min(92vw, 560px);
+    max-height: 82vh;
+    overflow: auto;
+    border: 1px solid rgba(239, 68, 68, 0.5);
+    background: rgba(24, 10, 14, 0.95);
+    border-radius: 14px;
+    padding: 14px 12px;
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.16);
+}
+
+.modal--veil-full .veil-error-title {
+    color: #fca5a5;
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+}
+
+.modal--veil-full .veil-error-message {
+    margin: 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    color: #ffe4e6;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    font-family: var(--font-ui);
+}
+
 .modal--veil-full .modal-veil-img-only img {
     display: block;
     max-width: 100%;
@@ -1288,10 +1317,11 @@ body > .dark-embed-wrap {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid var(--glass-border);
     border-radius: 16px;
-    padding: 12px 14px;
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
+    padding: 10px 12px;
+    display: grid;
+    grid-template-columns: 40px minmax(0, 1fr) auto;
+    align-items: start;
+    column-gap: 10px;
     cursor: pointer;
     transition: 0.3s;
     --tone: var(--accent);
@@ -1411,29 +1441,31 @@ body > .dark-embed-wrap {
 }
 
 .action-label {
-    flex: 1 1 auto;
+    display: block;
     min-width: 0;
     font-weight: 600;
-    font-size: 0.9rem;
-    line-height: 1.45;
+    font-size: 0.88rem;
+    line-height: 1.35;
+    white-space: pre-wrap;
+    text-overflow: clip;
+    overflow: visible;
     word-break: break-word;
     overflow-wrap: anywhere;
 }
 
 .action-chance {
-    flex-shrink: 0;
-    align-self: flex-start;
+    align-self: center;
     text-align: right;
     display: flex;
     flex-direction: column;
     gap: 2px;
-    min-width: 4.25rem;
+    min-width: 3.8rem;
 }
 
 .chance-val {
     color: var(--tone);
     font-weight: 700;
-    font-size: 1rem;
+    font-size: 0.95rem;
     text-shadow: 0 0 8px color-mix(in srgb, var(--tone) 35%, transparent);
 }
 
@@ -1470,5 +1502,52 @@ body > .dark-embed-wrap {
         max-height: 80dvh !important;
         min-height: 80vh !important;
         min-height: 80dvh !important;
+    }
+
+    .action-item {
+        grid-template-columns: 32px minmax(0, 1fr);
+        grid-template-areas:
+            "icon label"
+            "icon chance";
+        padding: 8px 10px;
+        border-radius: 12px;
+        column-gap: 8px;
+        row-gap: 3px;
+    }
+
+    .action-icon {
+        grid-area: icon;
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+    }
+
+    .action-icon-glyph {
+        font-size: 0.92rem;
+    }
+
+    .action-label {
+        grid-area: label;
+        font-size: 0.82rem;
+        line-height: 1.28;
+    }
+
+    .action-chance {
+        grid-area: chance;
+        align-self: start;
+        justify-self: start;
+        text-align: left;
+        min-width: 0;
+        flex-direction: row;
+        align-items: baseline;
+        gap: 6px;
+    }
+
+    .chance-val {
+        font-size: 0.9rem;
+    }
+
+    .chance-label {
+        font-size: 0.55rem;
     }
 }
