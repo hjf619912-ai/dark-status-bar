@@ -65,6 +65,8 @@ const DMC_STYLES = [
     { cn: '骗术师', en: 'Trickster', icon: 'T' },
     { cn: '皇家护卫', en: 'Royal Guard', icon: 'R' },
 ] as const;
+// 每次发布改这里即可，例如：V0.60
+const UI_VERSION = 'V0.59';
 
 function getStyleIcon(style: string): string {
     const s = String(style || '').trim();
@@ -1348,7 +1350,10 @@ export default function App() {
         <div className="dashboard" id="main-dashboard">
             {/* Header */}
             <header className="header">
-                <div className="header-title">DARK FANTASY RPG</div>
+                <div className="header-title-wrap">
+                    <div className="header-title">DARK FANTASY RPG</div>
+                    <span className="header-version-badge">{UI_VERSION}</span>
+                </div>
                 <div className="header-icons">
                     {/* 纯 Unicode，不依赖字体/SVG，本地 iframe 与云酒馆均可见 */}
                     <span className="header-icon-emoji-only" title="通知" role="img" aria-label="通知">
