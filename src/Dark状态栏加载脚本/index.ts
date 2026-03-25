@@ -434,7 +434,8 @@ function mountIframe($hook: JQuery<HTMLElement>) {
   } catch {
     origin = window.location.origin;
   }
-  const baseUrl = `${origin}/dark`;
+  // 云端统一走 /dist/Dark，避免误命中旧的 /dark 目录
+  const baseUrl = `${origin}/dist/Dark`;
   const v = Date.now();
   const src = `${baseUrl}/index.html?v=${v}`;
   const wrap = `<div class="dark-embed-wrap" style="width:100%;min-width:100%;max-width:100vw;overflow-x:hidden;box-sizing:border-box;"><iframe src="${src}" style="width:100%;height:80vh;min-height:400px;border:none;display:block;"></iframe></div>`;
