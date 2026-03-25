@@ -976,6 +976,24 @@ body > .dark-embed-wrap {
     .stat-value { font-size: 0.9rem; }
     .content { padding: 12px 8px; }
     .header { padding: 14px 10px; }
+
+    /* 主角栏：手机也保持「左切换 / 中头像 / 右信息」横排，省纵向空间 */
+    .hero-profile {
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 16px;
+    }
+
+    .hero-info {
+        min-width: 0;
+        flex: 1;
+    }
+
+    .btn-style-switcher {
+        width: 40px;
+        height: 40px;
+    }
 }
 
 /* 小屏手机（如 iPhone 13 Mini）：聊天界面 4/5 高度、用满宽 */
@@ -1026,14 +1044,26 @@ body > .dark-embed-wrap {
         gap: 8px;
     }
 
+    /* 与 ≤540px 一致：横排，避免风格按钮叠在头像上下 */
     .hero-profile {
-        flex-direction: column;
-        gap: 12px;
+        flex-direction: row;
+        gap: 8px;
+        margin-bottom: 12px;
     }
 
     .hero-avatar {
-        width: 64px;
-        height: 64px;
+        width: 56px;
+        height: 56px;
+        flex-shrink: 0;
+    }
+
+    .btn-style-switcher {
+        width: 36px;
+        height: 36px;
+    }
+
+    .style-switcher-icon {
+        font-size: 1.05rem;
     }
 
     .hero-info h2 {
@@ -1231,8 +1261,9 @@ body > .dark-embed-wrap {
 }
 
 .action-list {
-    flex: 1 1 auto;
+    flex: 1 1 0;
     min-height: 0;
+    max-height: 100%;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -1257,10 +1288,10 @@ body > .dark-embed-wrap {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid var(--glass-border);
     border-radius: 16px;
-    padding: 12px 16px;
+    padding: 12px 14px;
     display: flex;
-    align-items: center;
-    gap: 16px;
+    align-items: flex-start;
+    gap: 12px;
     cursor: pointer;
     transition: 0.3s;
     --tone: var(--accent);
@@ -1268,6 +1299,7 @@ body > .dark-embed-wrap {
     --tone-glow: rgba(251, 191, 36, 0.18);
     position: relative;
     overflow: hidden;
+    min-height: 0;
 }
 
 .action-item:hover {
@@ -1295,6 +1327,7 @@ body > .dark-embed-wrap {
 }
 
 .action-icon {
+    flex-shrink: 0;
     width: 40px;
     height: 40px;
     background:
@@ -1378,15 +1411,23 @@ body > .dark-embed-wrap {
 }
 
 .action-label {
-    flex: 1;
+    flex: 1 1 auto;
+    min-width: 0;
     font-weight: 600;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
+    line-height: 1.45;
+    word-break: break-word;
+    overflow-wrap: anywhere;
 }
 
 .action-chance {
+    flex-shrink: 0;
+    align-self: flex-start;
     text-align: right;
     display: flex;
     flex-direction: column;
+    gap: 2px;
+    min-width: 4.25rem;
 }
 
 .chance-val {
