@@ -1,0 +1,12 @@
+{
+  "远程预设基础URL": "https://cdn.jsdelivr.net/gh/hjf619912-ai/dark-status-bar@feature/warm-spring-ui/assets/warm-spring-openings",
+  "默认选用开局": "开局一",
+  "自动初始化": true,
+  "写入目标": "character",
+  "开局关键字映射": {
+    "极乐庄": "开局一",
+    "温泉入口": "开局一",
+    "大巴": "开局二",
+    "车上": "开局二"
+  }
+}
