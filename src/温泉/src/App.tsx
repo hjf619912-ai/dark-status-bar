@@ -452,9 +452,9 @@ export default function App() {
 
   return (
     <div className="flex h-full min-h-0 flex-col overflow-hidden bg-[radial-gradient(circle_at_top,rgba(71,33,13,0.98),rgba(25,15,10,0.99)_42%,rgba(4,3,4,1)_100%)] text-white font-sans selection:bg-orange-300/25 selection:text-white">
-      <div className="mx-auto flex h-full min-h-0 max-w-5xl flex-1 flex-col overflow-hidden">
-        <header className="shrink-0 px-3 sm:px-6 pt-2.5 sm:pt-3 pb-1.5">
-          <div className="rounded-xl border border-[#8a552f]/55 bg-[linear-gradient(90deg,rgba(84,46,24,0.9),rgba(41,23,15,0.92)_56%,rgba(20,12,10,0.94))] px-3 py-1.5 sm:px-4 sm:py-2 shadow-[inset_0_1px_0_rgba(255,220,180,0.05),0_10px_28px_rgba(0,0,0,0.24)]">
+      <div className="flex h-full min-h-0 w-full flex-1 flex-col overflow-hidden px-2 sm:px-3 lg:px-4">
+        <header className="shrink-0 px-2 sm:px-3 pt-2 sm:pt-2.5 pb-1">
+          <div className="rounded-xl border border-[#8a552f]/55 bg-[linear-gradient(90deg,rgba(84,46,24,0.9),rgba(41,23,15,0.92)_56%,rgba(20,12,10,0.94))] px-3 py-1.5 sm:px-3 sm:py-2 shadow-[inset_0_1px_0_rgba(255,220,180,0.05),0_10px_28px_rgba(0,0,0,0.24)]">
             <div className="flex min-w-0 items-center gap-2 sm:gap-3">
               <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[#ffb36f]/35 bg-black/25 text-xl shadow-[0_0_0_1px_rgba(255,255,255,0.03)] sm:h-10 sm:w-10 sm:text-[22px]">
                 ♨️
@@ -466,10 +466,10 @@ export default function App() {
           </div>
         </header>
 
-        <main className="warm-spring-scroll min-h-0 flex-1 overflow-y-auto overflow-x-hidden overscroll-y-contain px-4 pb-3 pt-0 sm:px-6 sm:pb-5 [-webkit-overflow-scrolling:touch] space-y-3">
+        <main className="warm-spring-scroll min-h-0 flex-1 overflow-y-auto overflow-x-hidden overscroll-y-contain px-2 pb-2 pt-0 sm:px-3 sm:pb-4 [-webkit-overflow-scrolling:touch] space-y-2.5">
 
-          <div className="hidden md:grid md:grid-cols-[minmax(0,1.12fr)_minmax(0,0.88fr)] md:gap-2.5 md:items-stretch">
-            <div className="grid min-w-0 gap-2.5 self-stretch h-full">
+          <div className="hidden md:grid md:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] md:gap-2.5 md:items-stretch">
+            <div className="grid min-w-0 gap-2.5 self-stretch h-full min-w-[0]">
               <section className="min-w-0 rounded-xl border border-[#5a3720]/62 overflow-hidden bg-[linear-gradient(180deg,rgba(53,31,18,0.95),rgba(24,14,10,0.98)_44%,rgba(8,6,7,0.99))]">
                 <div className="px-4 py-1.5 border-b border-[#c06d2e]/32">
                   <div className="text-[11px] font-extrabold tracking-[0.2em] text-white">主角</div>
