@@ -1,0 +1,17 @@
+{
+  "默认选用开局": "开局一",
+  "自动初始化": true,
+  "问候语自动开局": true,
+  "stat_data键名": "stat_data",
+  "远程预设基础URL": "https://cdn.jsdelivr.net/gh/hjf619912-ai/dark-status-bar@feature/warm-spring-ui/assets/warm-spring-openings",
+  "开局一链接": "",
+  "开局二链接": "",
+  "开局关键字映射": {
+    "开局一": "开局一",
+    "开局二": "开局二"
+  },
+  "问候语索引映射": {
+    "0": "开局一",
+    "1": "开局二"
+  }
+}
