@@ -468,8 +468,8 @@ export default function App() {
 
         <main className="warm-spring-scroll min-h-0 flex-1 overflow-y-auto overflow-x-hidden overscroll-y-contain px-2 pb-2 pt-0 sm:px-3 sm:pb-4 [-webkit-overflow-scrolling:touch] space-y-2.5">
 
-          <div className="hidden md:grid md:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] md:gap-2.5 md:items-stretch">
-            <div className="grid min-w-0 gap-2.5 self-stretch h-full min-w-[0]">
+          <div className="hidden md:grid md:grid-cols-[minmax(0,1.18fr)_minmax(0,0.82fr)] md:gap-2.5 md:items-stretch">
+            <div className="grid min-w-0 gap-2.5 self-stretch h-full min-w-[0] md:min-h-[calc(100vh-7rem)]">
               <section className="min-w-0 rounded-xl border border-[#5a3720]/62 overflow-hidden bg-[linear-gradient(180deg,rgba(53,31,18,0.95),rgba(24,14,10,0.98)_44%,rgba(8,6,7,0.99))]">
                 <div className="px-4 py-1.5 border-b border-[#c06d2e]/32">
                   <div className="text-[11px] font-extrabold tracking-[0.2em] text-white">主角</div>
